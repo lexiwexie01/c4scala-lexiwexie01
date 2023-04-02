@@ -13,9 +13,9 @@ def main(args: Array[String]): Unit = {
     val numArgs = args.length
     val dimensions = undefined
 
-    if numArgs >= 1 then
+    if numArgs >= 1:
         dimensions = args(0).split("x")
-        if (dimensions == Null) then
+        if (dimensions == Null):
             println("Board size " + args(0) + " is not formatted properly.");
             System.exit(1)
         else
@@ -23,7 +23,8 @@ def main(args: Array[String]): Unit = {
             cols = dimensions(1).toInt
 
     // if there is an argument present for win length, use that
-    if numArgs == 2 then
+    if numArgs == 2:
         winLength = args(1).toInt
 }
 
+val c4 = Connect4(rows, cols, winLength).play()
