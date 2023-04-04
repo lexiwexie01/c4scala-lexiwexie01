@@ -1,6 +1,6 @@
 // Alexis Webster
 
-import connect4
+import c4_engine
 
 
 var rows = 6

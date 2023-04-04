@@ -2,9 +2,6 @@
 import scala.io.StdIn
 import scala.util.control.Breaks._
 
-package connect4:
-    class Connect4
-
 
 class Connect4(var numRows: Int, var numColumns: Int, var winLength: Int):
     // private variables that will be used throughout
