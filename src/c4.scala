@@ -11,11 +11,11 @@ val winLength = 4
 // Main method for playing the game (and getting command-line args)
 def main(args: Array[String]): Unit = {
     val numArgs = args.length
-    val dimensions = undefined
+    var dimensions: Array[String] = null
 
-    if numArgs >= 1:
+    if numArgs >= 1 then
         dimensions = args(0).split("x")
-        if (dimensions == Null):
+        if (dimensions == Null) then
             println("Board size " + args(0) + " is not formatted properly.");
             System.exit(1)
         else
@@ -23,7 +23,7 @@ def main(args: Array[String]): Unit = {
             cols = dimensions(1).toInt
 
     // if there is an argument present for win length, use that
-    if numArgs == 2:
+    if numArgs == 2 then
         winLength = args(1).toInt
 }
 

@@ -25,27 +25,27 @@ class Connect4(val numRows: Int, val numColumns: Int, val winLength: Int):
         println(header())
 
         // loop through each space on the board and display it
-        for row <- board:
-            for element <- row:
+        for row <- board do
+            for element <- row do
                 print(s"$element ")
             println()
 
     def play() = 
-        for row <- 0 to numRows-1:
-            for col <- 0 to numColumns-1:
+        for row <- 0 to numRows-1 do
+            for col <- 0 to numColumns-1 do
                 board(row)(col) = 0
 
         // makes it so you can use "break" to come back to here anywhere within this block
-        breakable:
+        breakable {
             // while there is no winner, keep playing
-            while !win:
+            while !win do
                 printBoard()
 
                 // have the player enter their move
                 moveLetter = StdIn.readLine(s"Player $player, enter a column: ")
 
                 // if player enters 'q', quit
-                if moveLetter == 'q':
+                if moveLetter == 'q' do
                     printf("Goodbye.")
                     sys.exit(0)
 
@@ -53,38 +53,38 @@ class Connect4(val numRows: Int, val numColumns: Int, val winLength: Int):
                 moveNum = moveLetter - 97
             
                 // if the column is not valid, display an error message
-                if moveNum < 0 || moveNum >= numColumns:
+                if moveNum < 0 || moveNum >= numColumns do
                     printf(s"There is no column called $moveLetter \n Please try again.")
                 // if the column is full, display an error message
-                else if board(0)(moveNum) != 0:
+                else if board(0)(moveNum) != 0 do
                     printf(s"The $moveLetter column is full. Please try again.")
                 // if there are no errors, place the piece
-                else:
-                    breakable:
-                        for row <- numRows-1 to 0 by -1:
+                else
+                    breakable {
+                        for row <- numRows-1 to 0 by -1 do
 
                             // place the piece if the slot is not full,
                             // leave loop once piece is placed
-                            if board(row)(moveNum) == 0:
+                            if board(row)(moveNum) == 0 do
                                 board(row)(moveNum) = player
                                 break
-                    
+                    }
                     // check for a win
                     win = checkForWin()
 
                     // exit the loop if there's a winner
-                    if win: break
+                    if win do break
 
                     counter += 1
 
                     // check for a draw
-                    if counter == numRows*numColumns:
+                    if counter == numRows*numColumns do
                         printf("It's a Draw!")
                         sys.exit(0)
 
                     // switch players
                     player = player%2 + 1
-        
+        }
         // this is only reached if there is a winner
         // print the board and the winner
         printBoard()
@@ -96,53 +96,55 @@ class Connect4(val numRows: Int, val numColumns: Int, val winLength: Int):
         inARow = 0
 
         // check columns for a vertical winner
-        for col <- 0 to numColumns-1:
+        for col <- 0 to numColumns-1 do
 
             // check all slots in column
-            for row <- numRows-1 to 0 by -1:
+            for row <- numRows-1 to 0 by -1 do
                 inARow = verticalHorizontalChecker(row, col, inARow)
-                if inARow == winLength:
+                if inARow == winLength do
                     return true
             inARow = 0
 
         // check columns for horizontal winner
-        for row <- 0 to numRows-1:
+        for row <- 0 to numRows-1 do
 
             // check all slots in row
-            for col <- 0 to numColumns-1:
+            for col <- 0 to numColumns-1 do
                 inARow = verticalHorizontalChecker(row, col, inARow)
-                if inARow == winLength:
+                if inARow == winLength do
                     return true
             inARow = 0
 
         // check for antidiagonal (/)
-        for row <- numRows-1 to 0 by -1:
-            breakable:
-                for col <- 0 to numColumns-1:
+        for row <- numRows-1 to 0 by -1 do
+            breakable {
+                for col <- 0 to numColumns-1 do
 
                     // stop checking for a diagonal outside of the board's bounds
-                    if (row <= numRows-winLength) || (col > numColumns-winLength):
+                    if (row <= numRows-winLength) || (col > numColumns-winLength) do
                         break
 
                     // if the player has a piece in that slot
-                    if board(row)(col) == player:
+                    if board(row)(col) == player do
                         inARow = diagonalChecker(row, col, 0)
-                        if inARow == winLength:
+                        if inARow == winLength do
                             return true
+            }
         
         // check for leading diagonal (\)
-        for row <- 0 to numRows-1:
-            breakable:
-                for col <- 0 to numColumns-1:
+        for row <- 0 to numRows-1 do
+            breakable {
+                for col <- 0 to numColumns-1 do
 
                     // stop checking for a diagonal outside of the board's bounds
-                    if (row > numRows-winLength) || (col > numColumns-winLength):
+                    if (row > numRows-winLength) || (col > numColumns-winLength) do
                         break
                     
-                    if board(row)(col) == player:
+                    if board(row)(col) == player do
                         inARow = diagonalChecker(row, col, 1)
-                        if inARow == winLength:
+                        if inARow == winLength do
                             return true
+            }
         return false
 
     def verticalHorizontalChecker(row, col, inARow): Int =
@@ -159,10 +161,10 @@ class Connect4(val numRows: Int, val numColumns: Int, val winLength: Int):
         inARow = 1
 
         
-        breakable:
+        breakable {
             // loop through all antidiagonal spots
-            for i <- 1 to winLength-1:
-                if inARow == winLength:
+            for i <- 1 to winLength-1 do
+                if inARow == winLength do
                     return inARow
 
     
@@ -171,15 +173,16 @@ class Connect4(val numRows: Int, val numColumns: Int, val winLength: Int):
 
                 // if the current slot contains the player's piece,
                 // add one to the inARow counter
-                if check == player:
+                if check == player do
                     inARow += 1
 
                     // if there are enough diagonal slots filled,
                     // return the winning number in a row
-                    if inARow == winLength:
+                    if inARow == winLength do
                         return inARow
-                else:
+                else 
                     break
             return 0
+        }
 
 end Connect4
