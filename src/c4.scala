@@ -1,11 +1,11 @@
 // Alexis Webster
 
-import c4_engine._
+import connect4
 
 
-val rows = 6
-val cols = 7
-val winLength = 4
+var rows = 6
+var cols = 7
+var winLength = 4
 
 
 // Main method for playing the game (and getting command-line args)
@@ -15,7 +15,7 @@ def main(args: Array[String]): Unit = {
 
     if numArgs >= 1 then
         dimensions = args(0).split("x")
-        if (dimensions == Null) then
+        if dimensions == null then
             println("Board size " + args(0) + " is not formatted properly.");
             System.exit(1)
         else

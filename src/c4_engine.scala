@@ -2,15 +2,18 @@
 import scala.io.StdIn
 import scala.util.control.Breaks._
 
+package connect4:
+    class Connect4
 
-class Connect4(val numRows: Int, val numColumns: Int, val winLength: Int):
+
+class Connect4(var numRows: Int, var numColumns: Int, var winLength: Int):
     // private variables that will be used throughout
-    private val board
-    private val player = 1
-    private val win = false
-    private val moveLetter
-    private val moveNum
-    private val counter = 0
+    private var board
+    private var player = 1
+    private var win = false
+    private var moveLetter
+    private var moveNum
+    private var counter = 0
 
     def header(): String =
         "A B C D E F G H I J K L M N O P".substring(0, numColumns*2)
