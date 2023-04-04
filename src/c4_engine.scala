@@ -92,8 +92,94 @@ class Connect4(val numRows: Int, val numColumns: Int, val winLength: Int):
         sys.exit(0)
 
     
-    def checkForWin() = 
+    def checkForWin: Boolean = 
+        inARow = 0
 
+        // check columns for a vertical winner
+        for col <- 0 to numColumns-1:
 
+            // check all slots in column
+            for row <- numRows-1 to 0 by -1:
+                inARow = verticalHorizontalChecker(row, col, inARow)
+                if inARow == winLength:
+                    return true
+            inARow = 0
+
+        // check columns for horizontal winner
+        for row <- 0 to numRows-1:
+
+            // check all slots in row
+            for col <- 0 to numColumns-1:
+                inARow = verticalHorizontalChecker(row, col, inARow)
+                if inARow == winLength:
+                    return true
+            inARow = 0
+
+        // check for antidiagonal (/)
+        for row <- numRows-1 to 0 by -1:
+            breakable:
+                for col <- 0 to numColumns-1:
+
+                    // stop checking for a diagonal outside of the board's bounds
+                    if (row <= numRows-winLength) || (col > numColumns-winLength):
+                        break
+
+                    // if the player has a piece in that slot
+                    if board(row)(col) == player:
+                        inARow = diagonalChecker(row, col, 0)
+                        if inARow == winLength:
+                            return true
+        
+        // check for leading diagonal (\)
+        for row <- 0 to numRows-1:
+            breakable:
+                for col <- 0 to numColumns-1:
+
+                    // stop checking for a diagonal outside of the board's bounds
+                    if (row > numRows-winLength) || (col > numColumns-winLength):
+                        break
+                    
+                    if board(row)(col) == player:
+                        inARow = diagonalChecker(row, col, 1)
+                        if inARow == winLength:
+                            return true
+        return false
+
+    def verticalHorizontalChecker(row, col, inARow): Int =
+
+        // add to the inARow variable if the slot is occupied by the player
+        if (board(row)(col) == player) inARow+1 else 0
+
+    // diagType represents the type of diagonal we are checking for
+    // 0 for antidiagonal(/), any nonzero int for leading diagonal(\)
+    def diagonalChecker(row, col, diagType): Int =
+
+        // checking in diagonal direction from this slot,
+        // so there is only 1 piece in a row to start
+        inARow = 1
+
+        
+        breakable:
+            // loop through all antidiagonal spots
+            for i <- 1 to winLength-1:
+                if inARow == winLength:
+                    return inARow
+
+    
+                // adjust logic depending on type of diagonal
+                check = if (diagType == 0) board(row-i)(col+i) else board (row+i)(col+i)
+
+                // if the current slot contains the player's piece,
+                // add one to the inARow counter
+                if check == player:
+                    inARow += 1
+
+                    // if there are enough diagonal slots filled,
+                    // return the winning number in a row
+                    if inARow == winLength:
+                        return inARow
+                else:
+                    break
+            return 0
 
 end Connect4
