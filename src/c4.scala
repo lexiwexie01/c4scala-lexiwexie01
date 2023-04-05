@@ -81,10 +81,10 @@ class Connect4(var numRows: Int, var numColumns: Int, var winLength: Int):
             
                 // if the column is not valid, display an error message
                 if moveNum < 0 || moveNum >= numColumns then
-                    printf(s"There is no column called $moveLetter \n Please try again.")
+                    printf(s"There is no column called $moveLetter \n Please try again.\n")
                 // if the column is full, display an error message
                 else if board(0)(moveNum) != 0 then
-                    printf(s"The $moveLetter column is full. Please try again.")
+                    printf(s"The $moveLetter column is full. Please try again.\n")
                 // if there are no errors, place the piece
                 else
                     breakable {
@@ -133,7 +133,7 @@ class Connect4(var numRows: Int, var numColumns: Int, var winLength: Int):
             inARow = 0
 
         // check columns for horizontal winner
-        for row <- 0 to numRows-1 do
+        for row <- 0 to numRows-1 if !winFound do
 
             // check all slots in row
             for col <- 0 to numColumns-1 do
@@ -142,7 +142,7 @@ class Connect4(var numRows: Int, var numColumns: Int, var winLength: Int):
             inARow = 0
 
         // check for antidiagonal (/)
-        for row <- numRows-1 to 0 by -1 do
+        for row <- numRows-1 to 0 by -1 if !winFound do
             breakable {
                 for col <- 0 to numColumns-1 do
 
@@ -157,7 +157,7 @@ class Connect4(var numRows: Int, var numColumns: Int, var winLength: Int):
             }
         
         // check for leading diagonal (\)
-        for row <- 0 to numRows-1 do
+        for row <- 0 to numRows-1 if !winFound do
             breakable {
                 for col <- 0 to numColumns-1 do
 
