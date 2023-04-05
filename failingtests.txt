@@ -1,0 +1,19 @@
+Failures:
+
+  1) Connect 4 alternate detects P1 winning vertically on a big board
+     Failure/Error: expect(result).to declare_win_for 1
+       Expected player 1 to win, but player -999 won. Last line was "C4 --- Board Dimensions: 16 by 16 --- Win Length: 7"
+     # ./spec/c4_student_spec.rb:77:in `block (2 levels) in <top (required)>'
+
+  2) Connect 4 alternate detects P2 winning diagonally up to the right starting in row 3 on a big board
+     Failure/Error: expect(result).to declare_win_for 2
+       Expected player 2 to win, but player -999 won. Last line was "C4 --- Board Dimensions: 16 by 16 --- Win Length: 4"
+     # ./spec/c4_student_spec.rb:82:in `block (2 levels) in <top (required)>'
+
+Finished in 2 minutes 39.2 seconds (files took 0.63249 seconds to load)
+22 examples, 2 failures
+
+Failed examples:
+
+rspec ./spec/c4_student_spec.rb:75 # Connect 4 alternate detects P1 winning vertically on a big board
+rspec ./spec/c4_student_spec.rb:80 # Connect 4 alternate detects P2 winning diagonally up to the right starting in row 3 on a big board
