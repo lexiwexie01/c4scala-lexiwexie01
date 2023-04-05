@@ -25,6 +25,6 @@ def main(args: Array[String]): Unit = {
     // if there is an argument present for win length, use that
     if numArgs == 2 then
         winLength = args(1).toInt
-}
 
-val c4 = Connect4(rows, cols, winLength).play()
+    val c4 = Connect4(rows, cols, winLength).play()
+}
