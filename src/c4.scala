@@ -42,7 +42,7 @@ class Connect4(var numRows: Int, var numColumns: Int, var winLength: Int):
     private var counter: Int = 0
 
     def header(): String =
-        "A B C D E F G H I J K L M N O P".substring(0, numColumns*2)
+        "A B C D E F G H I J K L M N O P".substring(0, numColumns*2-1)
 
     def printBoard() =
         // the 's' in front of the string makes it so you can inject variable values
